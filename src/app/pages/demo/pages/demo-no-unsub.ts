@@ -19,12 +19,12 @@ import { HttpClient } from '@angular/common/http';
 export class DemoNoUnsub implements OnInit {
   private readonly http = inject(HttpClient);
   private readonly destroyRef = inject(DestroyRef);
-
   ngOnInit(): void {
     this.destroyRef.onDestroy(() => {
       console.log('🟡 [NO unsub] ngOnDestroy fired');
     });
 
+    console.log('🔴 [NO unsub] HTTP request launched');
     this.http.get('https://httpbin.org/delay/5').subscribe({
       next: () =>
         console.log('🔴 [NO unsub] CALLBACK FIRED — component destroyed? Check for 🟡 above'),

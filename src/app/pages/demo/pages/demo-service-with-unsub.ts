@@ -21,12 +21,12 @@ import { DemoHttp } from '../services/demo-http';
 export class DemoServiceWithUnsub implements OnInit {
   private readonly service = inject(DemoHttp);
   private readonly destroyRef = inject(DestroyRef);
-
   ngOnInit(): void {
     this.destroyRef.onDestroy(() => {
       console.log('🟢 [WITH unsub + service] Component destroyed');
     });
 
+    console.log('🟢 [WITH unsub + service] HTTP request launched');
     this.service
       .getDelayedData()
       .pipe(takeUntilDestroyed(this.destroyRef))
